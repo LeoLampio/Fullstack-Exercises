@@ -9,14 +9,16 @@ const Statistics = ({ good, neutral, bad }) => {
     )
   }
   return (
-    <>
-      <StatisticLine name='good' value={good} />
-      <StatisticLine name='neutral' value={neutral} />
-      <StatisticLine name='bad' value={bad} />
-      <StatisticLine name='all' value={sum} />
-      <StatisticLine name='average' value={(good - bad) / sum} />
-      <StatisticLine name='positive (%)' value={good / sum * 100} />
-    </>
+    <table>
+      <tbody>
+        <StatisticLine name='good' value={good} />
+        <StatisticLine name='neutral' value={neutral} />
+        <StatisticLine name='bad' value={bad} />
+        <StatisticLine name='all' value={sum} />
+        <StatisticLine name='average' value={(good - bad) / sum} />
+        <StatisticLine name='positive (%)' value={good / sum * 100} />
+      </tbody>
+    </table>
   )
 }
 
@@ -30,7 +32,10 @@ const Button = ({ name, onClick }) => {
 
 const StatisticLine = ({ name, value }) => {
   return (
-    <p>{name} {value}</p>
+    <tr>
+      <td>{name}</td>
+      <td>{value}</td>
+    </tr>
   )
 }
 
