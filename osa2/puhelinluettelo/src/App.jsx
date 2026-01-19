@@ -1,38 +1,39 @@
 import { useState } from 'react'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
-  ]) 
+  const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
   
-  const addName = (event) => {
+  const addPerson = (event) => {
     event.preventDefault()
     
     for (const person of persons) {
-      if (person.name === newName) {
-        alert(newName + ' is already added')
+      if (person.number === newNumber) {
+        alert(newNumber + ' is already added')
         return
       }
     }
     
-    setPersons(persons.concat({ name: newName }))
+    setPersons(persons.concat({ name: newName, number: newNumber }))
     setNewName('')
+    setNewNumber('')
   }
   
   return (
     <div>
       <h2>Phonebook</h2>
-      <form onSubmit={addName}>
+      <form onSubmit={addPerson}>
         <div>
-          name: <input value={newName} onChange={(event) => setNewName(event.target.value)} />
+          <p>name: <input value={newName} onChange={(event) => setNewName(event.target.value)} /></p>
+          <p>number: <input value={newNumber} onChange={(event) => setNewNumber(event.target.value)} /></p>
         </div>
         <div>
           <button type="submit">add</button>
         </div>
       </form>
       <h2>Numbers</h2>
-      {persons.map(p => <p key={p.name}>{p.name}</p>)}
+      {persons.map(p => <p key={p.name}>{p.name} {p.number}</p>)}
     </div>
   )
 
