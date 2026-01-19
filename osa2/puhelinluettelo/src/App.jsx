@@ -8,6 +8,14 @@ const App = () => {
   
   const addName = (event) => {
     event.preventDefault()
+    
+    for (const person of persons) {
+      if (person.name === newName) {
+        alert(newName + ' is already added')
+        return
+      }
+    }
+    
     setPersons(persons.concat({ name: newName }))
     setNewName('')
   }
