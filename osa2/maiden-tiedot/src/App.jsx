@@ -13,12 +13,16 @@ function App() {
     )
   }, [input])
   
+  const selectCountry = country => {
+    setCountries([country])
+  }
+  
   return (
     <div>
       <p>
         find countries <input value={input} onChange={(event) => setInput(event.target.value)} />
       </p>
-      <Countries countries={countries} />
+      <Countries countries={countries} selectCountry={selectCountry} />
     </div>
   )
 }

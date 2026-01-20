@@ -1,5 +1,5 @@
 
-const Countries = ({ countries }) => {
+const Countries = ({ countries, selectCountry }) => {
   
   if (countries.length === 0) {
     return (
@@ -25,7 +25,7 @@ const Countries = ({ countries }) => {
   } else if (countries.length <= 10) {
     return (
       <div>
-        {countries.map(country => <div key={country.name.common}>{country.name.common}</div>)}
+        {countries.map(country => <div key={country.name.common}>{country.name.common} <button onClick={() => selectCountry(country)}>show</button></div>)}
       </div>
     )
   }
