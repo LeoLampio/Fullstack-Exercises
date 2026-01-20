@@ -4,7 +4,8 @@ import personService from './services/persons'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
-import Notification from './components/Notification'
+import Popup from './components/Popup'
+import Error from './components/Error'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -12,6 +13,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
   const [popup, setPopup] = useState(null)
+  const [error, setError] = useState(null)
   
   useEffect(() => {
     personService.getAll()
@@ -41,6 +43,10 @@ const App = () => {
             setPopup(`${changed.name}'s number was changed to ${changed.number}`)
             setTimeout(() => setPopup(null), 5000)
           })
+          .catch(error => {
+            setError(`${newName} doesn't exist anymore`)
+            setTimeout(() => setError(null), 5000)
+          })
         return
       }
     }
@@ -69,7 +75,8 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
-      <Notification message={popup} />
+      <Popup message={popup} />
+      <Error message={error} />
       <Filter filter={filter} onFilterChange={(event) => setFilter(event.target.value)} />
       <h2>add a new</h2>
       <PersonForm addPerson={addPerson} name={newName} number={newNumber} onNameChange={(event) => setNewName(event.target.value)} onNumberChange={(event) => setNewNumber(event.target.value)} />

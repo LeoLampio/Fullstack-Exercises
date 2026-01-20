@@ -1,5 +1,5 @@
 
-const Notification = ({ message }) => {
+const Popup = ({ message }) => {
   if (message === null) {
     return null
   }
@@ -11,4 +11,4 @@ const Notification = ({ message }) => {
   )
 }
 
-export default Notification
+export default Popup
