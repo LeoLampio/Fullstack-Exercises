@@ -13,7 +13,7 @@ const App = () => {
   
   useEffect(() => {
     personService.getAll()
-      .then(p => setPersons(p))
+      .then(loaded => setPersons(loaded))
   }, [])
   
   const addPerson = (event) => {
@@ -27,10 +27,19 @@ const App = () => {
     }
     
     personService.add({ name: newName, number: newNumber })
-      .then(p => {
-        setPersons(persons.concat(p))
+      .then(added => {
+        setPersons(persons.concat(added))
         setNewName('')
         setNewNumber('')  
+    })
+  }
+  
+  const removePerson = (person) => {
+    if (!confirm('delete ' + person.name + '?')) {
+      return
+    }
+    personService.remove(person.id).then(removed => {
+      setPersons(persons.filter(p => p.id !== removed.id))
     })
   }
   
@@ -41,7 +50,7 @@ const App = () => {
       <h2>add a new</h2>
       <PersonForm addPerson={addPerson} name={newName} number={newNumber} onNameChange={(event) => setNewName(event.target.value)} onNumberChange={(event) => setNewNumber(event.target.value)} />
       <h2>Numbers</h2>
-      <Persons persons={persons} filter={filter} />
+      <Persons persons={persons} filter={filter} delFunc={removePerson} />
     </div>
   )
 

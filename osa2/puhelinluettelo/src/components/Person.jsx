@@ -1,7 +1,7 @@
 
-const Person = ({ person }) => {
+const Person = ({ person, delFunc }) => {
   return (
-    <p>{person.name} {person.number}</p>
+    <p><button onClick={() => delFunc(person)}>remove</button> {person.name} {person.number}</p>
   )
 }
 

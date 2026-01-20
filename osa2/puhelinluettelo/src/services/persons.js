@@ -10,7 +10,7 @@ const add = person => {
 }
 
 const remove = id => {
-  
+  return axios.delete(`${baseUrl}/${id}`).then(response => response.data)
 }
 
 export default { getAll, add, remove }
