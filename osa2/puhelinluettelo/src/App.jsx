@@ -5,6 +5,8 @@ import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 
+const url = 'http://localhost:3001/persons'
+
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
@@ -13,7 +15,7 @@ const App = () => {
   
   useEffect(() => {
     axios
-      .get('http://localhost:3001/persons')
+      .get(url)
       .then(response => setPersons(response.data))
   }, [])
   
@@ -27,9 +29,13 @@ const App = () => {
       }
     }
     
-    setPersons(persons.concat({ name: newName, number: newNumber }))
-    setNewName('')
-    setNewNumber('')
+    axios
+      .post(url, { name: newName, number: newNumber })
+      .then(response => {
+        setPersons(persons.concat(response.data))
+        setNewName('')
+        setNewNumber('')  
+    })
   }
   
   return (
