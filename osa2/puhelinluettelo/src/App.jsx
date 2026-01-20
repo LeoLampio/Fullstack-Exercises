@@ -26,6 +26,21 @@ const App = () => {
       }
     }
     
+    for (const person of persons) {
+      if (person.name === newName) {
+        if (!confirm(newName + ' is already added, replace the old number with a new one?')) {
+          return
+        }
+        personService.update(person.id, { name: newName, number: newNumber })
+          .then(changed => {
+            setPersons(persons.map(p => p.id !== changed.id ? p : changed))
+            setNewName('')
+            setNewNumber('')  
+          })
+        return
+      }
+    }
+    
     personService.add({ name: newName, number: newNumber })
       .then(added => {
         setPersons(persons.concat(added))
