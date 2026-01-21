@@ -1,5 +1,7 @@
 
-const Countries = ({ countries, selectCountry }) => {
+import Weather from "./Weather"
+
+const Countries = ({ countries, selectCountry, weather, getIcon }) => {
   
   if (countries.length === 0) {
     return (
@@ -20,6 +22,7 @@ const Countries = ({ countries, selectCountry }) => {
           {Object.values(countries[0].languages).map(lang => <li key={lang}>{lang}</li>)}
         </ul>
         <img src={countries[0].flags.svg} alt={countries[0].flags.alt} width={128} />
+        <Weather capital={countries[0].capital[0]} weather={weather} />
       </div>
     )
   } else if (countries.length <= 10) {
