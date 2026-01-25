@@ -34,6 +34,17 @@ app.get('/api/persons', (request, response) => {
   response.json(persons)
 })
 
+app.get('/api/persons/:id', (request, response) => {
+  const id = request.params.id
+  const person = persons.filter(p => p.id === id)[0]
+  
+  if (person) {
+    response.json(person)
+  } else {
+    response.status(404).end()
+  }
+})
+
 app.get('/info', (request, response) => {
   let date = new Date();
   response.send(`<p>Phonebook has info for ${persons.length} people</p><p>${date.toLocaleDateString("fi-FI")} ${date.toLocaleTimeString("fi-FI")}</p>`);
