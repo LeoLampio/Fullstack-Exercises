@@ -45,6 +45,13 @@ app.get('/api/persons/:id', (request, response) => {
   }
 })
 
+app.delete('/api/persons/:id', (request, response) => {
+  const id = request.params.id
+  persons = persons.filter(p => p.id !== id)
+
+  response.status(204).end()
+})
+
 app.get('/info', (request, response) => {
   let date = new Date();
   response.send(`<p>Phonebook has info for ${persons.length} people</p><p>${date.toLocaleDateString("fi-FI")} ${date.toLocaleTimeString("fi-FI")}</p>`);
