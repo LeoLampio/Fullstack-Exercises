@@ -60,6 +60,11 @@ app.post('/api/persons', (request, response) => {
       error: 'data missing' 
     })
   }
+  if (persons.map(p => p.name).includes(body.name)) {
+    return response.status(400).json({
+      error: 'name must be unique'
+    })
+  }
 
   const person = {
     name: body.name,
