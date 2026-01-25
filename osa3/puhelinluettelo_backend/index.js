@@ -52,6 +52,30 @@ app.delete('/api/persons/:id', (request, response) => {
   response.status(204).end()
 })
 
+app.post('/api/persons', (request, response) => {
+  const body = request.body
+
+  if (!body.name || !body.number) {
+    return response.status(400).json({ 
+      error: 'data missing' 
+    })
+  }
+
+  const person = {
+    name: body.name,
+    number: body.number,
+    id: generateId(),
+  }
+
+  persons = persons.concat(person)
+
+  response.json(person)
+})
+
+const generateId = () => {
+  return String(Math.floor(Math.random() * 1000))
+}
+
 app.get('/info', (request, response) => {
   let date = new Date();
   response.send(`<p>Phonebook has info for ${persons.length} people</p><p>${date.toLocaleDateString("fi-FI")} ${date.toLocaleTimeString("fi-FI")}</p>`);
